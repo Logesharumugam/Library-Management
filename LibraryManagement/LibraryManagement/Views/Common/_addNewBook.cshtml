@@ -1,0 +1,184 @@
+﻿@using Newtonsoft.Json
+@model  LibraryManagement.Models.AddBook
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Book Details";
+}
+
+<style>
+#fieldset {
+  position: relative;
+  left: 5.5%;
+  margin: 2px;
+  margin-left: 0px;
+  padding: 0;
+  color: #333;
+
+}
+
+ #lab {
+    display: block;
+    float: left;
+    width: 180px;
+    color: #796a6c;
+    margin-top: 5px;
+}
+
+.validation {
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    width: 342px;
+}
+
+.required:after {
+    content: " *";
+    font-weight: 400;
+    color: red;
+}
+.container{
+    max-width: 970px;
+    }
+
+   .btn-sm {
+    background-color: #803A79!important;
+    border-color: #803A79!important;
+}
+
+</style>
+<div class="container" style="margin-left: 0px !important">
+    <div class="row" style="margin-top: 75px;">
+        <div style="margin-left: 40px"><b>Add Book</b>
+        </div>
+        <hr style="margin-left: 40px"/>
+        <form class="form-horizontal" id="fo" method="post" action="~/books/update" enctype="multipart/form-data">
+            <div id="fieldset">
+                <p class="form-group">
+                    @Html.LabelFor(m => m.BookName, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.BookName, new {@class = "form-control", id = "bookname", onkeypress = ""})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="bookname_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.Cagegory, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.DropDownList("Category", new List<SelectListItem>(), new {@class = "form form-control", multiple = "multiple", id = "Category"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="category_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.IsbnNo, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.IsbnNo, new {@class = "form-control", id = "isbnno"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="isbnno_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.Publisher, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.Publisher, new {@class = "form-control", id = "publisher"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="publisher_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.Author, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.Author, new {@class = "form-control", id = "author"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.Author, "", new {@class = "field-validation-error"})
+                    <label id="author_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.BookReviewLink, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.BookReviewLink, new {@class = "form-control", id = "bookreviewlink"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookReviewLink, "", new {@class = "field-validation-error"})
+                    <label id="bookreviewlink_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.NumberOfCopies, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextBoxFor(m => m.NumberOfCopies, new {@class = "form-control", id = "numberofcopies"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="numberofcopies_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+
+                <p class="form-group">
+                    @Html.LabelFor(m => m.Comments, new {@class = "required", id = "lab"})
+                    <span class="validation">
+                        @Html.TextAreaFor(m => m.Comments, new {@class = "form-control", id = "comments", rows = "3", style = "margin-left:0px;right: 0px;overflow: auto;"})
+                    </span>
+                    @Html.ValidationMessageFor(m => m.BookName, "", new {@class = "field-validation-error"})
+                    <label id="comments_errorlabel" style="width: 260px; margin-left: 0px; font-weight: normal; height: 25px; color: Red; position: relative; bottom: 5px; font-size: 11px; color: #b94a48;"></label>
+                </p>
+                <div>
+                    <a class="btn btn-sm btn-default pull-right" id="cancelbook" href="~/profile/userbooklistcollection" style="color: white;margin-right: 100px;"> Cancel </a>
+                    <a class="btn btn-sm btn-default pull-right" id="addbook" href="javascript:void(0)" style="color: white;margin-right:15px;"> Add </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $(function() {
+        var category = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Category));
+
+        $('#Category')
+            .ejDropDownList({
+                dataSource: category,
+                change: "onCategoryChange",
+                watermarkText: "Select Category",
+                height: 30,
+                width: 342,
+                popupHeight: "200px",
+                enableIncrementalSearch: true,
+                caseSensitiveSearch: false,
+                enableFilterSearch: true,
+                fields: { id: "Value", text: "Text", value: "Value" },
+                text: "@(Model == null ? "" : Model.Cagegory)"
+            });
+
+        $("#addbook").click(function() {
+            var data = new FormData($("#fo")[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: "/books/update",
+                data: data,
+                processData: false,
+                contentType: false,
+                accept: 'application/json',
+                error: function(response) {
+                    Error = "Error occurred while processing request.";
+                },
+                success: function(response) {
+                    if (response.status === true) {
+                        location.href = "/profile/userbooklistcollection";
+                    } else {
+                        alert("Error : Please fill all the fields.");
+                    }
+                },
+                complete :function(response) {
+                }
+            });
+
+
+        });
+    });
+</script>

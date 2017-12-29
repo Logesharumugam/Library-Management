@@ -1,0 +1,22 @@
+﻿@model LibraryManagement.Models.ProfilePresentationModel
+@{
+    ViewBag.Title = "Login";
+}
+<link href="~/Styles/Login/Login.css" rel="stylesheet" />
+
+<body class="login">
+    <h1>Syncfusion Library Management</h1>
+    <div id="login-page">
+        @using (Html.BeginForm())
+        {
+            @Html.TextBoxFor(model => model.EmailId, new { @class = "login-control", placeholder = " Email address" })
+            <br />
+            @Html.TextBoxFor(model => model.Password, new { @class = "login-control", placeholder = " Password", type = "password" })
+            <br />
+            @Html.ValidationMessage("Login")
+            <br />
+            <button class="submit-button" id="button-submit" type="submit">Login</button>
+
+        }
+    </div>
+</body>

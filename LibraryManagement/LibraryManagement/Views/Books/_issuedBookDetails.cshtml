@@ -1,0 +1,93 @@
+﻿@using Newtonsoft.Json
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "_issuedBookDetails";
+}
+<div class="container-fluid">
+    <div class="row" style="padding: 20px; margin-top: 55px;">
+        <div style="margin-bottom: 10px;font-weight: bold;">Books Issued Details</div>
+        <div id="issuebookdetails"></div>
+    </div>
+</div>
+
+    <script>
+        $(function() {
+            var bookdetailsList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.BookDetails));
+            bookdetailsList = ej.parseJSON(bookdetailsList);
+
+            $("#issuebookdetails")
+               .ejGrid({
+                   dataSource: bookdetailsList,
+                   allowPaging: true,
+                   pageSettings: { pageSize: 3 },
+                   allowSelection: false,
+                   allowSorting: true,
+                   contextMenuSettings: { enableContextMenu: false },
+                   allowFiltering: true,
+                   filterSettings: { filterType: "excel" },
+                   allowResizing: true,
+                   allowEditing: false,
+                   allowScrolling: false,
+                   enableTouch: false,
+                   enableAltRow: true,
+                   load:window.GridToolTipBehavior,
+                   columns: [
+                       {
+                           headerText: "Book Name",
+                           field: "BookName",
+                           type: "string",
+                           textAlign: ej.TextAlign.Left,
+                           width: 70,
+                       },
+                   {
+                       headerText: "Category Name",
+                       field: "CategoryName",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },
+                    {
+                        headerText: "Issued Date",
+                        field: "IssuedDate",
+                        type: "date",
+                        format: "{0:d MMM yyyy}",
+                        textAlign: ej.TextAlign.Left,
+                        width: 40,
+                    },
+                     {
+                         headerText: "Due Date",
+                         field: "DueDate",
+                         type: "date",
+                         format: "{0:d MMM yyyy}",
+                         textAlign: ej.TextAlign.Left,
+                         width: 40,
+                     },                             
+                    {
+                        headerText: "Status",
+                        field: "Status",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },                                                           
+                    {
+                        headerText: "User Name",
+                        field: "UserName",
+                        type: "string",                      
+                        textAlign: ej.TextAlign.Left,
+                        width: 40,
+                    },
+                    {
+                        headerText: "Action",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70
+                    }
+                   ]
+               });
+
+        });
+    </script>
+
+
+

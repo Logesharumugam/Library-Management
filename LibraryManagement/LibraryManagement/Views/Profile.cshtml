@@ -1,0 +1,363 @@
+﻿@using Newtonsoft.Json
+
+@{
+var emailId = ViewBag.UserEmail;
+var name = ViewBag.UserName;
+    var role = ViewBag.Role;
+}
+
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+}
+
+<style>
+    .sub-heading {
+        display: inline-block;
+        width: 50px;
+        font-weight: 600;
+            color: #b4b4b4;
+    }
+
+    .detail {
+        padding-bottom: 35px;
+    }
+
+    .information {
+        padding-left: 15px;
+        color: #757575;
+        font-weight: 600;
+    }
+
+    .e-headercelldiv {
+        color: #757575;
+    }
+     #bookrequestgrid .e-rowcell {
+    overflow: visible!important;
+    white-space: inherit;    
+    word-wrap: break-word;
+}
+
+    #newlyproposalbookgrid .e-rowcell {
+    overflow: visible!important;
+    white-space: inherit;    
+    word-wrap: break-word;
+}
+
+  .e-grid .e-gridcontent {
+        overflow: visible!important;
+    }
+
+  .fa {
+          padding-right: 5px;
+  }
+</style>
+<div class="container-fluid">
+    <div class="row" style="padding: 20px; margin-top: 55px;">
+        <div class="col-md-6 profilecolums">
+            <div class="row" style="margin-right: -10px; border: 1px solid #e5e5e5; height: 250px;box-shadow: 0 0 2px 0 rgba(0,0,0,.14), 0 2.5px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);">
+                <div style="font-size: 20px; padding: 5px; padding-left: 10px; font-weight: 600; color: #757575;">Profile Details</div>
+                <div class="col-md-3">
+                    <i class="fa fa-user" style="font-size: 150px; color: #757575;"></i>
+                </div>
+                <div class="col-sm-9" style="padding-top: 10px;">
+
+                    <div class="detail">
+                        <span class="sub-heading">
+                            Name
+                        </span>
+                        <span class="gap">:</span>
+                        <span class="information">
+                           @name
+                        </span>
+                    </div>
+                    <div class="detail">
+                        <span class="sub-heading">
+                            Email
+                        </span>
+                        <span class="gap">:</span>
+                        <span class="information">
+                            @emailId
+                        </span>
+                    </div>
+                    <div class="detail">
+                        <span class="sub-heading">
+                            Role
+                        </span>
+                        <span class="gap">:</span>
+                        <span class="information">
+                           @role
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6 profilecolums">
+            <div class="row" style="margin-left: -10px;height: 250px; background: #e5e5e5;box-shadow: 0 0 2px 0 rgba(0,0,0,.14), 0 2.5px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);">
+                <div class="col-sm-12">
+                    <div style="font-size: 20px; padding: 5px; padding-left: 0px; font-weight: 600;color: #757575;">My Book Request</div>
+                    <div id="bookrequestgrid"></div>
+                </div>
+            </div>
+        </div>
+
+              
+    </div>
+    <div class="row" style="padding: 20px; padding-top: 0px;">
+        <div class="col-md-6 profilecolums">
+            <div class="row" style="margin-right: -10px; height: 250px; background: #e5e5e5;box-shadow: 0 0 2px 0 rgba(0,0,0,.14), 0 2.5px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);">
+                <div class="col-sm-12">
+                    <div style="font-size: 20px; padding: 5px; padding-left: 0px; font-weight: 600; color: #757575;">My Proposal Books</div>
+                    <div id="newlyproposalbookgrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 profilecolums">
+            <div class="row" style="margin-left: -10px;height: 250px; background: #e5e5e5;box-shadow: 0 0 2px 0 rgba(0,0,0,.14), 0 2.5px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);">
+                <div class="col-sm-12">
+                    <div style="font-size: 20px; padding: 5px; padding-left: 0px; font-weight: 600;color: #757575;">My Lost Book Details</div>
+                    <div id="booklostdetailsgrid"></div>
+                </div>
+            </div>
+        </div> 
+
+
+
+    </div>
+</div>
+<script type="text/x-jsrender" id="proposalTemplateId">
+    <div class="dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; font-size: 24px; font-weight: bold; line-height: 9px;" aria-expanded="true"> ... </span>
+        <ul class="dropdown-menu pull-left" style="left:-55px; min-width: 115px !important; ">
+            <li><a title="Edit"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+            <li><a title="Delete" onclick="deletecancelClick(5,'test room')"><span class="glyphicon glyphicon-trash"></span> Delete</a></li>
+        </ul>
+    </div>
+</script>
+
+
+<script type="text/x-jsrender" id="requestTemplateId">
+    <div class="dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; font-size: 24px; font-weight: bold; line-height: 9px;" aria-expanded="true"> ... </span>
+        <ul class="dropdown-menu pull-left" style="left:-55px; min-width: 115px !important; ">
+            <li><a title="Renew"><i class="fa fa-undo" aria-hidden="true"></i>Renew</a></li>
+            <li><a title="Extend"><i class="fa fa-expand" aria-hidden="true"></i></span>Extend</a></li>
+            <li><a title="Cancel" onclick="deletecancelClick(5,'test room')"><i class="fa fa-times" aria-hidden="true"></i>Cancel</a></li>
+        </ul>
+    </div>
+</script>
+<script>
+    $(document).ready(function () {       
+        var booklostList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Booklostdetails));
+        booklostList = ej.parseJSON(booklostList);
+        var proposalbookList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ProposalBookdetails));
+        proposalbookList = ej.parseJSON(proposalbookList);
+        var bookrequestList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.BookRequestList));
+        bookrequestList = ej.parseJSON(bookrequestList);
+        ej.support.enableLocalizedSort = true;
+        $("#booklostdetailsgrid")
+            .ejGrid({
+                dataSource: booklostList,
+                allowPaging: true,
+                pageSettings: { pageSize: 3 },
+                allowSelection: false,
+                allowSorting: true,
+                contextMenuSettings: { enableContextMenu: false },
+                allowFiltering: true,
+                filterSettings: { filterType: "excel" },
+                allowResizing: true,
+                allowEditing: false,
+                allowScrolling: false,
+                enableTouch: false,                  
+                enableAltRow: true,
+                load:window.GridToolTipBehavior,
+                columns: [
+                     {
+                         headerText: "Book Id",
+                         field: "BookId",
+                         type: "int",
+                         textAlign: ej.TextAlign.Left,
+                         width: 30,
+                     },
+                    {
+                        headerText: "Book Name",
+                        field: "BookName",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 100,
+                    },
+                    {
+                        headerText: "Issued Date",
+                        field: "IssuedDate",
+                        type: "date",
+                        format: "{0:d MMM yyyy}",
+                        textAlign: ej.TextAlign.Left,
+                        width: 40,
+                    },
+                    {
+                        headerText: "Fine Amount",
+                        field: "FineAmount",
+                        type: "int",
+                        textAlign: ej.TextAlign.Left,
+                        width: 30,
+
+                    },                   
+                ]
+            });
+
+        $("#newlyproposalbookgrid")
+            .ejGrid({
+                dataSource: proposalbookList,
+                allowPaging: true,
+                pageSettings: { pageSize: 1 },
+                allowSelection: false,
+                allowSorting: true,
+                contextMenuSettings: { enableContextMenu: false },
+                allowFiltering: true,
+                filterSettings: { filterType: "excel" },
+                allowResizing: true,
+                allowEditing: false,
+                allowScrolling: false,
+                enableTouch: false,
+                load:window.GridToolTipBehavior,
+                enableAltRow: true,
+                columns: [
+                    {
+                        headerText: "Book Name",
+                        field: "BookName",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 100,
+                    },
+                     {
+                         headerText: "Category",
+                         field: "CategoryName",
+                         type: "string",
+                         textAlign: ej.TextAlign.Left,
+                         width: 70,
+                     },
+                    {
+                        headerText: "Author",
+                        field: "AuthorName",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 100,
+
+                    },
+                     {
+                         headerText: "Proposed Date",
+                         field: "ProposedDate",
+                         type: "date",
+                         format: "{0:d MMM yyyy}",
+                         textAlign: ej.TextAlign.Left,
+                         width: 70,
+                     }, {
+                         headerText: "Status",
+                         field: "Status",
+                         type: "string",
+                         textAlign: ej.TextAlign.Left,
+                         width: 70,
+                     },
+                      {
+                          headerText: "Action",
+                          type: "string",
+                          textAlign: ej.TextAlign.Center,
+                          headerTextAlign:ej.TextAlign.Center,
+                          template:true,
+                          templateID: "#proposalTemplateId",
+                          allowGrouping: false,
+                          allowFiltering: false,
+                          allowSorting: false,                        
+                          isUnbound: true,
+                          width: 50
+                      }
+                   
+                ]
+            });
+
+        $("#bookrequestgrid")
+            .ejGrid({
+                dataSource: bookrequestList,
+                allowPaging: true,
+                pageSettings: { pageSize: 1 },
+                allowSelection: false,
+                allowSorting: true,
+                contextMenuSettings: { enableContextMenu: false },
+                allowFiltering: true,
+                filterSettings: { filterType: "excel" },
+                allowResizing: true,
+                allowEditing: false,
+                allowScrolling: false,
+                enableTouch: false,  
+                load:window.GridToolTipBehavior,
+                enableAltRow: true,
+                columns: [
+                     {
+                         headerText: "Book Id",
+                         field: "BookId",
+                         type: "int",
+                         textAlign: ej.TextAlign.Left,
+                         width: 30,
+                     },
+                    {
+                        headerText: "Book Name",
+                        field: "BookName",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 100,
+                    },
+                     {
+                         headerText: "Requested Date",
+                         field: "RequestedDate",
+                         type: "date",
+                         format: "{0:d MMM yyyy}",
+                         textAlign: ej.TextAlign.Left,
+                         width: 70,
+                     },                    
+                    {
+                        headerText: "Status",
+                        field: "Status",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },
+                    {
+                        headerText: "Issue Date",
+                        field: "IssuedDate",
+                        type: "date",
+                        format: "{0:d MMM yyyy}",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },   
+                    {
+                        headerText: "Due Date",
+                        field: "DueDate",
+                        type: "date",
+                        format: "{0:d MMM yyyy}",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },   
+                    
+                    {
+                        headerText: "Action",
+                        type: "string",
+                        textAlign: ej.TextAlign.Center,
+                        headerTextAlign:ej.TextAlign.Center,
+                        template:true,
+                        templateID: "#requestTemplateId",
+                        allowGrouping: false,
+                        allowFiltering: false,
+                        allowSorting: false,                      
+                        isUnbound: true,
+                        width: 50
+                    }
+                ]
+            });
+    });
+</script>

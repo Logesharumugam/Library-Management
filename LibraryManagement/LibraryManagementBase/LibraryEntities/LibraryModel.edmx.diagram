@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e516c76a0814b308ac83a402010d6d2" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryManagementModel.BookDetail" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.BookLostDetail" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.BookRequestDetail" Width="1.5" PointX="9.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.CategoryDetail" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.CheckInCheckOutDetail" Width="1.5" PointX="12" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.History" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.NewProposalDetail" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.Role" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.Status" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.UserDetail" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookDetails_CategoryDetails_CatgoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookRequestDetails_BookDetails_BookId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookLostDetails_UserDetails_LostBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookLostDetails_UserDetails_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookRequestDetails_Status_StatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_BookRequestDetails_UserDetails_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_CategoryDetails_UserDetails_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_CheckInCheckOutDetails_UserDetails_IssuedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_CheckInCheckOutDetails_UserDetails_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_History_UserDetails_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_NewProposalDetails_Status_ProposedStatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_NewProposalDetails_UserDetails_ProposedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryManagementModel.FK_UserDetails_Roles_RoleId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LibraryManagementModel.Vw_GetBookDetails" Width="1.5" PointX="0.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,135 @@
+﻿
+@using Newtonsoft.Json
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Request Book Details";
+}
+
+
+<style>
+    #requestbook .e-rowcell {
+    overflow: visible!important;
+    white-space: inherit;    
+    /*word-wrap: break-word;*/
+}
+
+  .e-grid .e-gridcontent {
+        overflow: visible!important;
+    }
+  .fa {
+          padding-right: 5px;
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row" style="padding: 20px; margin-top: 55px;">
+        <div style="margin-bottom: 10px;font-weight: bold;">Requested Book Details</div>
+        <div id="requestbook"></div>
+    </div>
+</div>
+
+
+<script type="text/x-jsrender" id="bookrequestTemplateId">
+    <div class="dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; font-size: 24px; font-weight: bold; line-height: 9px;" aria-expanded="true"> ... </span>
+        <ul class="dropdown-menu pull-left" style="left:-55px; min-width: 115px !important; ">
+            <li><a title="Request"><i class="fa fa-expand" aria-hidden="true"></i>Approve</a></li>
+            <li><a title="Pending"><i class="fa fa-times" aria-hidden="true"></i>Reject</a></li>
+        </ul>
+    </div>
+</script> 
+
+<script>
+    $(function() {
+        var bookdetailsList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.BookDetails));
+        bookdetailsList = ej.parseJSON(bookdetailsList);
+
+        $("#requestbook")
+           .ejGrid({
+               dataSource: bookdetailsList,
+               allowPaging: true,
+               pageSettings: { pageSize: 10 },
+               allowSelection: false,
+               allowSorting: true,
+               contextMenuSettings: { enableContextMenu: false },
+               allowFiltering: true,
+               filterSettings: { filterType: "excel" },
+               allowResizing: true,
+               allowEditing: false,
+               allowScrolling: false,
+               enableTouch: false,
+               enableAltRow: true,
+               load:window.GridToolTipBehavior,
+               columns: [
+                   {
+                       headerText: "Book Name",
+                       field: "BookName",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },
+                   {
+                       headerText: "Category Name",
+                       field: "CategoryName",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },
+                   {
+                       headerText: "Author Name",
+                       field: "AuthorName",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },
+                   {
+                       headerText: "Publisher",
+                       field: "Publisher",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },
+                   {
+                       headerText: "ISBN Number",
+                       field: "ISBNNumber",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 70,
+                   },                   
+                    {
+                        headerText: "Status",
+                        field: "Status",
+                        type: "string",
+                        textAlign: ej.TextAlign.Left,
+                        width: 50,
+                    },
+                    {
+                        headerText: "Requested Date",
+                        field: "RequestedDate",
+                        type: "date",
+                        format: "{0:d MMM yyyy}",
+                        textAlign: ej.TextAlign.Left,
+                        width: 40,
+                    },
+                    {
+                        headerText: "User Name",
+                        field: "UserName",
+                        type: "string",                      
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },
+                    {
+                        headerText: "Action",
+                        type: "string",    
+                        templateID: "#bookrequestTemplateId",
+                        textAlign: ej.TextAlign.Left,
+                        width: 40,
+                    }, 
+               ]
+           });
+
+    });
+</script>
+
+

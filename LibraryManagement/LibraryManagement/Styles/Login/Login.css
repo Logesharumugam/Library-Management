@@ -1,0 +1,59 @@
+﻿.login{    
+    text-align: center;
+    display: block;  
+    background-color: #f3f3f4;
+}
+    h1{
+    color: #7f7f7f;
+    font-size: 22px;
+    margin-top: 133px;
+    margin-bottom: -140px;
+      }
+#login-page {
+    text-align: center;
+    margin-top: 150px;
+    margin-left : 457px;
+    box-shadow: 1px 3px 3px 2px #d3d1d1;
+    background-color: #fff;
+    display: block;
+    height: 197px;
+    width: 350px;
+    padding-top: 4px;
+}
+.login-control{
+        display: block;
+        margin-top: 6px;
+        margin-left: 48px;
+        border: 1.35px solid #cbcbcb;
+        border-radius: 4px;
+}
+.login-control {
+    height: 28px;
+    width: 250px;
+}
+.label-control{
+        display:block;
+        margin-left: -200px;
+        margin-bottom:-26px;
+}
+#button-submit{
+    cursor: pointer;
+    margin-top: -10px;
+    height: 30px;
+    width: 250px;
+    color:white;
+    border-radius: 5px;
+    border-color:#80397b;
+    background-color: #80397b;
+}
+#EmailId{
+    margin-top: 20px;
+
+           }
+.field-validation-error{
+    color: red;
+    display: block;
+    font-size: 12px;
+    margin-left: -106px;
+    margin-top: -10px;
+}

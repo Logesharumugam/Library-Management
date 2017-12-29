@@ -1,0 +1,1041 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LibraryManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookDetails">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ISBNNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar" MaxLength="200" />
+          <Property Name="BookReviewLink" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalNoOfCopies" Type="int" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="PurchasedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Publisher" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookLostDetails">
+          <Key>
+            <PropertyRef Name="BookLostId" />
+          </Key>
+          <Property Name="BookLostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookIssueId" Type="int" Nullable="false" />
+          <Property Name="FineAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LostBy" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookRequestDetails">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryDetails">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="520" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CheckInCheckOutDetails">
+          <Key>
+            <PropertyRef Name="BookIssueId" />
+          </Key>
+          <Property Name="BookIssueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookRequestId" Type="int" Nullable="false" />
+          <Property Name="IssuedBy" Type="int" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
+          <Property Name="ReturnedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HistoryDetails" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewProposalDetails">
+          <Key>
+            <PropertyRef Name="ProposalId" />
+          </Key>
+          <Property Name="ProposalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProposedBy" Type="int" Nullable="false" />
+          <Property Name="ProposedStatusId" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Publisher" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProposedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserMail" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LibraryManagement.dbo.Vw_GetBookDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetBookDetails">
+          <Key>
+            <PropertyRef Name="BookId" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="Publisher" />
+            <PropertyRef Name="TotalNoOfCopies" />
+          </Key>
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="520" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Publisher" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ISBNNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="BookReviewLink" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalNoOfCopies" Type="int" Nullable="false" />
+          <Property Name="RequestedCopy" Type="int" />
+          <Property Name="IssuedCopy" Type="int" />
+          <Property Name="AvailableCopy" Type="int" />
+        </EntityType>
+        <Association Name="FK_BookDetails_CategoryDetails_CatgoryId">
+          <End Role="CategoryDetails" Type="Self.CategoryDetails" Multiplicity="1" />
+          <End Role="BookDetails" Type="Self.BookDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryDetails">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="BookDetails">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId">
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetails" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckInCheckOutDetails">
+              <PropertyRef Name="BookIssueId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="BookIssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_UserDetails_LostBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="LostBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_BookDetails_BookId">
+          <End Role="BookDetails" Type="Self.BookDetails" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookDetails">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_Status_StatusId">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_UserDetails_UserId">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryDetails_UserDetails_CreatedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="CategoryDetails" Type="Self.CategoryDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CategoryDetails">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId">
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetails" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookRequestDetails">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="BookRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_UserDetails_IssuedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="IssuedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewProposalDetails_Status_ProposedStatusId">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="NewProposalDetails" Type="Self.NewProposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="NewProposalDetails">
+              <PropertyRef Name="ProposedStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewProposalDetails_UserDetails_ProposedBy">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="NewProposalDetails" Type="Self.NewProposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="NewProposalDetails">
+              <PropertyRef Name="ProposedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_Roles_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryManagementModelStoreContainer">
+          <EntitySet Name="BookDetails" EntityType="Self.BookDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookLostDetails" EntityType="Self.BookLostDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookRequestDetails" EntityType="Self.BookRequestDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryDetails" EntityType="Self.CategoryDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckInCheckOutDetails" EntityType="Self.CheckInCheckOutDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewProposalDetails" EntityType="Self.NewProposalDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vw_GetBookDetails" EntityType="Self.Vw_GetBookDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetBookDetails].[BookId] AS [BookId], 
+    [Vw_GetBookDetails].[BookName] AS [BookName], 
+    [Vw_GetBookDetails].[CategoryName] AS [CategoryName], 
+    [Vw_GetBookDetails].[AuthorName] AS [AuthorName], 
+    [Vw_GetBookDetails].[Publisher] AS [Publisher], 
+    [Vw_GetBookDetails].[ISBNNumber] AS [ISBNNumber], 
+    [Vw_GetBookDetails].[BookReviewLink] AS [BookReviewLink], 
+    [Vw_GetBookDetails].[TotalNoOfCopies] AS [TotalNoOfCopies], 
+    [Vw_GetBookDetails].[RequestedCopy] AS [RequestedCopy], 
+    [Vw_GetBookDetails].[IssuedCopy] AS [IssuedCopy], 
+    [Vw_GetBookDetails].[AvailableCopy] AS [AvailableCopy]
+    FROM [dbo].[Vw_GetBookDetails] AS [Vw_GetBookDetails]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BookDetails_CategoryDetails_CatgoryId" Association="Self.FK_BookDetails_CategoryDetails_CatgoryId">
+            <End Role="CategoryDetails" EntitySet="CategoryDetails" />
+            <End Role="BookDetails" EntitySet="BookDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId" Association="Self.FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId">
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_UserDetails_LostBy" Association="Self.FK_BookLostDetails_UserDetails_LostBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_UserDetails_ModifiedBy" Association="Self.FK_BookLostDetails_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_BookDetails_BookId" Association="Self.FK_BookRequestDetails_BookDetails_BookId">
+            <End Role="BookDetails" EntitySet="BookDetails" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_Status_StatusId" Association="Self.FK_BookRequestDetails_Status_StatusId">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_UserDetails_UserId" Association="Self.FK_BookRequestDetails_UserDetails_UserId">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryDetails_UserDetails_CreatedBy" Association="Self.FK_CategoryDetails_UserDetails_CreatedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CategoryDetails" EntitySet="CategoryDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId" Association="Self.FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId">
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_UserDetails_IssuedBy" Association="Self.FK_CheckInCheckOutDetails_UserDetails_IssuedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_UserDetails_ModifiedBy" Association="Self.FK_CheckInCheckOutDetails_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_UserDetails_ModifiedBy" Association="Self.FK_History_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewProposalDetails_Status_ProposedStatusId" Association="Self.FK_NewProposalDetails_Status_ProposedStatusId">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="NewProposalDetails" EntitySet="NewProposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewProposalDetails_UserDetails_ProposedBy" Association="Self.FK_NewProposalDetails_UserDetails_ProposedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="NewProposalDetails" EntitySet="NewProposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_Roles_RoleId" Association="Self.FK_UserDetails_Roles_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookDetail">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ISBNNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="AuthorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BookReviewLink" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalNoOfCopies" Type="Int32" Nullable="false" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PurchasedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Publisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CategoryDetail" Relationship="Self.FK_BookDetails_CategoryDetails_CatgoryId" FromRole="BookDetails" ToRole="CategoryDetails" />
+          <NavigationProperty Name="BookRequestDetails" Relationship="Self.FK_BookRequestDetails_BookDetails_BookId" FromRole="BookDetails" ToRole="BookRequestDetails" />
+        </EntityType>
+        <EntityType Name="BookLostDetail">
+          <Key>
+            <PropertyRef Name="BookLostId" />
+          </Key>
+          <Property Name="BookLostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookIssueId" Type="Int32" Nullable="false" />
+          <Property Name="FineAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LostBy" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CheckInCheckOutDetail" Relationship="Self.FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId" FromRole="BookLostDetails" ToRole="CheckInCheckOutDetails" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_BookLostDetails_UserDetails_LostBy" FromRole="BookLostDetails" ToRole="UserDetails" />
+          <NavigationProperty Name="UserDetail1" Relationship="Self.FK_BookLostDetails_UserDetails_ModifiedBy" FromRole="BookLostDetails" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="BookRequestDetail">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookDetail" Relationship="Self.FK_BookRequestDetails_BookDetails_BookId" FromRole="BookRequestDetails" ToRole="BookDetails" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_BookRequestDetails_Status_StatusId" FromRole="BookRequestDetails" ToRole="Status" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_BookRequestDetails_UserDetails_UserId" FromRole="BookRequestDetails" ToRole="UserDetails" />
+          <NavigationProperty Name="CheckInCheckOutDetails" Relationship="Self.FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId" FromRole="BookRequestDetails" ToRole="CheckInCheckOutDetails" />
+        </EntityType>
+        <EntityType Name="CategoryDetail">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="520" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookDetails" Relationship="Self.FK_BookDetails_CategoryDetails_CatgoryId" FromRole="CategoryDetails" ToRole="BookDetails" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_CategoryDetails_UserDetails_CreatedBy" FromRole="CategoryDetails" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="CheckInCheckOutDetail">
+          <Key>
+            <PropertyRef Name="BookIssueId" />
+          </Key>
+          <Property Name="BookIssueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookRequestId" Type="Int32" Nullable="false" />
+          <Property Name="IssuedBy" Type="Int32" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReturnedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookLostDetails" Relationship="Self.FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId" FromRole="CheckInCheckOutDetails" ToRole="BookLostDetails" />
+          <NavigationProperty Name="BookRequestDetail" Relationship="Self.FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId" FromRole="CheckInCheckOutDetails" ToRole="BookRequestDetails" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_CheckInCheckOutDetails_UserDetails_IssuedBy" FromRole="CheckInCheckOutDetails" ToRole="UserDetails" />
+          <NavigationProperty Name="UserDetail1" Relationship="Self.FK_CheckInCheckOutDetails_UserDetails_ModifiedBy" FromRole="CheckInCheckOutDetails" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoryDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_History_UserDetails_ModifiedBy" FromRole="History" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="NewProposalDetail">
+          <Key>
+            <PropertyRef Name="ProposalId" />
+          </Key>
+          <Property Name="ProposalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Author" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ProposedBy" Type="Int32" Nullable="false" />
+          <Property Name="ProposedStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Publisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_NewProposalDetails_Status_ProposedStatusId" FromRole="NewProposalDetails" ToRole="Status" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_NewProposalDetails_UserDetails_ProposedBy" FromRole="NewProposalDetails" ToRole="UserDetails" />
+          <Property Name="ProposedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_Roles_RoleId" FromRole="Roles" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookRequestDetails" Relationship="Self.FK_BookRequestDetails_Status_StatusId" FromRole="Status" ToRole="BookRequestDetails" />
+          <NavigationProperty Name="NewProposalDetails" Relationship="Self.FK_NewProposalDetails_Status_ProposedStatusId" FromRole="Status" ToRole="NewProposalDetails" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserMail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookLostDetails" Relationship="Self.FK_BookLostDetails_UserDetails_LostBy" FromRole="UserDetails" ToRole="BookLostDetails" />
+          <NavigationProperty Name="BookLostDetails1" Relationship="Self.FK_BookLostDetails_UserDetails_ModifiedBy" FromRole="UserDetails" ToRole="BookLostDetails" />
+          <NavigationProperty Name="BookRequestDetails" Relationship="Self.FK_BookRequestDetails_UserDetails_UserId" FromRole="UserDetails" ToRole="BookRequestDetails" />
+          <NavigationProperty Name="CategoryDetails" Relationship="Self.FK_CategoryDetails_UserDetails_CreatedBy" FromRole="UserDetails" ToRole="CategoryDetails" />
+          <NavigationProperty Name="CheckInCheckOutDetails" Relationship="Self.FK_CheckInCheckOutDetails_UserDetails_IssuedBy" FromRole="UserDetails" ToRole="CheckInCheckOutDetails" />
+          <NavigationProperty Name="CheckInCheckOutDetails1" Relationship="Self.FK_CheckInCheckOutDetails_UserDetails_ModifiedBy" FromRole="UserDetails" ToRole="CheckInCheckOutDetails" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_History_UserDetails_ModifiedBy" FromRole="UserDetails" ToRole="History" />
+          <NavigationProperty Name="NewProposalDetails" Relationship="Self.FK_NewProposalDetails_UserDetails_ProposedBy" FromRole="UserDetails" ToRole="NewProposalDetails" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserDetails_Roles_RoleId" FromRole="UserDetails" ToRole="Roles" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_BookDetails_CategoryDetails_CatgoryId">
+          <End Role="CategoryDetails" Type="Self.CategoryDetail" Multiplicity="1" />
+          <End Role="BookDetails" Type="Self.BookDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryDetails">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="BookDetails">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_BookDetails_BookId">
+          <End Role="BookDetails" Type="Self.BookDetail" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookDetails">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId">
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetail" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckInCheckOutDetails">
+              <PropertyRef Name="BookIssueId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="BookIssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_UserDetails_LostBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="LostBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookLostDetails_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="BookLostDetails" Type="Self.BookLostDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookLostDetails">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_Status_StatusId">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookRequestDetails_UserDetails_UserId">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BookRequestDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId">
+          <End Role="BookRequestDetails" Type="Self.BookRequestDetail" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookRequestDetails">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="BookRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryDetails_UserDetails_CreatedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="CategoryDetails" Type="Self.CategoryDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CategoryDetails">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_UserDetails_IssuedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="IssuedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInCheckOutDetails_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="CheckInCheckOutDetails" Type="Self.CheckInCheckOutDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CheckInCheckOutDetails">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_UserDetails_ModifiedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewProposalDetails_Status_ProposedStatusId">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="NewProposalDetails" Type="Self.NewProposalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="NewProposalDetails">
+              <PropertyRef Name="ProposedStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NewProposalDetails_UserDetails_ProposedBy">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="NewProposalDetails" Type="Self.NewProposalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="NewProposalDetails">
+              <PropertyRef Name="ProposedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_Roles_RoleId">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookDetails" EntityType="Self.BookDetail" />
+          <EntitySet Name="BookLostDetails" EntityType="Self.BookLostDetail" />
+          <EntitySet Name="BookRequestDetails" EntityType="Self.BookRequestDetail" />
+          <EntitySet Name="CategoryDetails" EntityType="Self.CategoryDetail" />
+          <EntitySet Name="CheckInCheckOutDetails" EntityType="Self.CheckInCheckOutDetail" />
+          <EntitySet Name="Histories" EntityType="Self.History" />
+          <EntitySet Name="NewProposalDetails" EntityType="Self.NewProposalDetail" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+          <AssociationSet Name="FK_BookDetails_CategoryDetails_CatgoryId" Association="Self.FK_BookDetails_CategoryDetails_CatgoryId">
+            <End Role="CategoryDetails" EntitySet="CategoryDetails" />
+            <End Role="BookDetails" EntitySet="BookDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_BookDetails_BookId" Association="Self.FK_BookRequestDetails_BookDetails_BookId">
+            <End Role="BookDetails" EntitySet="BookDetails" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId" Association="Self.FK_BookLostDetails_CheckInCheckOutDetails_BookIssueId">
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_UserDetails_LostBy" Association="Self.FK_BookLostDetails_UserDetails_LostBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookLostDetails_UserDetails_ModifiedBy" Association="Self.FK_BookLostDetails_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookLostDetails" EntitySet="BookLostDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_Status_StatusId" Association="Self.FK_BookRequestDetails_Status_StatusId">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookRequestDetails_UserDetails_UserId" Association="Self.FK_BookRequestDetails_UserDetails_UserId">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId" Association="Self.FK_CheckInCheckOutDetails_BookRequestDetails_BookRequestId">
+            <End Role="BookRequestDetails" EntitySet="BookRequestDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryDetails_UserDetails_CreatedBy" Association="Self.FK_CategoryDetails_UserDetails_CreatedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CategoryDetails" EntitySet="CategoryDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_UserDetails_IssuedBy" Association="Self.FK_CheckInCheckOutDetails_UserDetails_IssuedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInCheckOutDetails_UserDetails_ModifiedBy" Association="Self.FK_CheckInCheckOutDetails_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CheckInCheckOutDetails" EntitySet="CheckInCheckOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_UserDetails_ModifiedBy" Association="Self.FK_History_UserDetails_ModifiedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewProposalDetails_Status_ProposedStatusId" Association="Self.FK_NewProposalDetails_Status_ProposedStatusId">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="NewProposalDetails" EntitySet="NewProposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NewProposalDetails_UserDetails_ProposedBy" Association="Self.FK_NewProposalDetails_UserDetails_ProposedBy">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="NewProposalDetails" EntitySet="NewProposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_Roles_RoleId" Association="Self.FK_UserDetails_Roles_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <EntitySet Name="Vw_GetBookDetails" EntityType="LibraryManagementModel.Vw_GetBookDetails" />
+        </EntityContainer>
+        <EntityType Name="Vw_GetBookDetails">
+          <Key>
+            <PropertyRef Name="BookId" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="Publisher" />
+            <PropertyRef Name="TotalNoOfCopies" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="520" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Publisher" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ISBNNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BookReviewLink" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalNoOfCopies" Type="Int32" Nullable="false" />
+          <Property Name="RequestedCopy" Type="Int32" />
+          <Property Name="IssuedCopy" Type="Int32" />
+          <Property Name="AvailableCopy" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryManagementModelStoreContainer" CdmEntityContainer="LibraryManagementEntities">
+          <EntitySetMapping Name="BookDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.BookDetail">
+              <MappingFragment StoreEntitySet="BookDetails">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="ISBNNumber" ColumnName="ISBNNumber" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+                <ScalarProperty Name="BookReviewLink" ColumnName="BookReviewLink" />
+                <ScalarProperty Name="TotalNoOfCopies" ColumnName="TotalNoOfCopies" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="PurchasedDate" ColumnName="PurchasedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookLostDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.BookLostDetail">
+              <MappingFragment StoreEntitySet="BookLostDetails">
+                <ScalarProperty Name="BookLostId" ColumnName="BookLostId" />
+                <ScalarProperty Name="BookIssueId" ColumnName="BookIssueId" />
+                <ScalarProperty Name="FineAmount" ColumnName="FineAmount" />
+                <ScalarProperty Name="LostBy" ColumnName="LostBy" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookRequestDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.BookRequestDetail">
+              <MappingFragment StoreEntitySet="BookRequestDetails">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.CategoryDetail">
+              <MappingFragment StoreEntitySet="CategoryDetails">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckInCheckOutDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.CheckInCheckOutDetail">
+              <MappingFragment StoreEntitySet="CheckInCheckOutDetails">
+                <ScalarProperty Name="BookIssueId" ColumnName="BookIssueId" />
+                <ScalarProperty Name="BookRequestId" ColumnName="BookRequestId" />
+                <ScalarProperty Name="IssuedBy" ColumnName="IssuedBy" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="ReturnedDate" ColumnName="ReturnedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Histories">
+            <EntityTypeMapping TypeName="LibraryManagementModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+                <ScalarProperty Name="HistoryDetails" ColumnName="HistoryDetails" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewProposalDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.NewProposalDetail">
+              <MappingFragment StoreEntitySet="NewProposalDetails">
+                <ScalarProperty Name="ProposedDate" ColumnName="ProposedDate" />
+                <ScalarProperty Name="ProposalId" ColumnName="ProposalId" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="ProposedBy" ColumnName="ProposedBy" />
+                <ScalarProperty Name="ProposedStatusId" ColumnName="ProposedStatusId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="LibraryManagementModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="LibraryManagementModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserMail" ColumnName="UserMail" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetBookDetails">
+            <EntityTypeMapping TypeName="LibraryManagementModel.Vw_GetBookDetails">
+              <MappingFragment StoreEntitySet="Vw_GetBookDetails">
+                <ScalarProperty Name="AvailableCopy" ColumnName="AvailableCopy" />
+                <ScalarProperty Name="IssuedCopy" ColumnName="IssuedCopy" />
+                <ScalarProperty Name="RequestedCopy" ColumnName="RequestedCopy" />
+                <ScalarProperty Name="TotalNoOfCopies" ColumnName="TotalNoOfCopies" />
+                <ScalarProperty Name="BookReviewLink" ColumnName="BookReviewLink" />
+                <ScalarProperty Name="ISBNNumber" ColumnName="ISBNNumber" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,68 @@
+﻿
+
+@using Newtonsoft.Json
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Category Book Details";
+}
+
+<div class="container-fluid">
+    <div class="row" style="padding: 20px; margin-top: 55px;">
+        <div style="margin-bottom: 10px;font-weight: bold;">Category Book Details</div>
+        <div id="categorybook"></div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        var bookdetailsList = @Html.Raw(JsonConvert.SerializeObject(ViewBag.BookDetails));
+        bookdetailsList = ej.parseJSON(bookdetailsList);
+
+        $("#categorybook")
+           .ejGrid({
+               dataSource: bookdetailsList,
+               allowPaging: true,
+               pageSettings: { pageSize: 15 },
+               allowSelection: false,
+               allowSorting: true,
+               contextMenuSettings: { enableContextMenu: false },
+               allowFiltering: true,
+               filterSettings: { filterType: "excel" },
+               allowResizing: true,
+               allowEditing: false,
+               allowScrolling: false,
+               enableTouch: false,
+               enableAltRow: true,
+               load:window.GridToolTipBehavior,
+               columns: [  
+                   {
+                       headerText: "S.No",
+                       field: "SerialNo",
+                       type: "int",
+                       textAlign: ej.TextAlign.Left,
+                       width: 30,
+                   },                   
+                   {
+                       headerText: "Category Name",
+                       field: "CategoryName",
+                       type: "string",
+                       textAlign: ej.TextAlign.Left,
+                       width: 100,
+                   },      
+                    {
+                        headerText: "No of copies",
+                        field: "NoOfCopies",
+                        type: "int",
+                        textAlign: ej.TextAlign.Left,
+                        width: 70,
+                    },
+                   
+                   
+               ]
+           });
+
+    });
+</script>
+
+
