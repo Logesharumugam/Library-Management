@@ -10,9 +10,10 @@
     margin-bottom: -140px;
       }
 #login-page {
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     margin-top: 150px;
-    margin-left : 457px;
     box-shadow: 1px 3px 3px 2px #d3d1d1;
     background-color: #fff;
     display: block;
